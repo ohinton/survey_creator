@@ -1,1 +1,28 @@
 <h3><%= @survey.name() %></h3>
+
+<form action="/surveys/<%= @survey.id() %>/questions" method="post">
+  <input type="hidden" name="survey_id" value="<%= @survey.id() %>">
+  <label for="description">Write a question for this survey</label>
+  <input name="description" type="text">
+
+  <button id="question_submit" type="submit">Submit</button>
+</form>
+
+<h3>Here are the saved questions in this survey!</h3>
+<% if @questions.any? %>
+  <ol>
+    <% @questions.each() do |question| %>
+      <li><%= question.description %></li>
+    <%end%>
+  </ol>
+<%else%>
+<p>There are no questions saved yet!</p>
+<%end%>
+
+
+<form action"/surveys/<% @survey.id%>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label for="name">Update the survey name:</label>
+  <input name="name" type="text">
+<button type="submit">Update</button>
+</form>

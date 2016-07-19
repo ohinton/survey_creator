@@ -30,3 +30,26 @@ describe('the survey details path', {:type => :feature}) do
     expect(page).to have_content("Test survey")
   end
 end
+
+describe('add a question to survey path', {:type => :feature}) do
+  it('lets the user add a new question to a specific survey') do
+    test_survey = Survey.create({:name => "Test Survey"})
+    visit('/')
+    click_link('Test survey')
+    expect(page).to have_content("Test survey")
+    fill_in('description', :with => "What is your favorite whiskey coctail?")
+    click_button("question_submit")
+    expect(page).to have_content("What is your favorite whiskey coctail?")
+  end
+end
+
+describe('update a survey name path', {:type => :feature}) do
+  it ("updates a survey's name") do
+    test_survey = Survey.create({:name => "Test Survey"})
+    visit('/')
+    click_link('Test survey')
+    fill_in('name', :with => "New Test Survey")
+    click_button("Update")
+    expect(page).to have_content("New test survey")
+  end
+end
