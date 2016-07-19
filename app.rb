@@ -33,6 +33,13 @@ patch('/surveys/:id') do
   erb(:survey)
 end
 
+delete('/surveys/:id') do
+  @survey = Survey.find(params.fetch('id').to_i())
+  @survey.destroy()
+  @surveys = Survey.all
+  erb(:index)
+end
+
 post('/surveys/:id/questions') do
   @survey = Survey.find(params.fetch('id').to_i())
   description = params.fetch('description')

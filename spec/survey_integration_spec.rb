@@ -53,3 +53,13 @@ describe('update a survey name path', {:type => :feature}) do
     expect(page).to have_content("New test survey")
   end
 end
+
+describe('delete a survey path', {:type => :feature}) do
+  it('removes a survey from the database') do
+    test_survey = Survey.create({:name => "Test Survey"})
+    visit('/')
+    click_link('Test survey')
+    click_button('Delete')
+    expect(page).to have_content("There are no surveys added yet!")
+  end
+end
