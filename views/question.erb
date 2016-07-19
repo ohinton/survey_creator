@@ -8,7 +8,7 @@
 <button type="submit">Update</button>
 </form>
 
-<form action="/questions/<%= @question.id %>" method="post">
+<form action="/surveys/<%= @survey.id() %>/questions/<%= @question.id %>" method="post">
   <input type="hidden" name="_method" value="delete">
   <button type="submit">Delete</button>
 </form>

@@ -76,3 +76,15 @@ describe('update questions path', {:type => :feature}) do
     expect(page).to have_content('New test question description')
   end
 end
+
+describe('delete a question path', {:type => :feature}) do
+  it('removes a question from the database') do
+    test_survey = Survey.create({:name => "Test Survey"})
+    test_question = Question.create({:description => "This is a test question", :survey_id => test_survey.id()})
+    visit('/')
+    click_link('Test survey')
+    click_link('This is a test question')
+    click_button('Delete')
+    expect(page).to have_content("There are no questions saved yet!")
+  end
+end

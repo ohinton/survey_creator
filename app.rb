@@ -66,3 +66,12 @@ patch('/surveys/:survey_id/questions/:question_id') do
   @questions = Question.all()
   erb(:survey)
 end
+
+delete('/surveys/:id/questions/:question_id') do
+  @question = Question.find(params.fetch('question_id').to_i())
+  @question.destroy()
+  @questions = Question.all
+  @survey = Survey.find(params.fetch('id').to_i())
+  @surveys = Survey.all()
+  erb(:survey)
+end
