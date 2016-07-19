@@ -4,6 +4,7 @@ also_reload("lib/**/*.rb")
 require("sinatra/activerecord")
 require("./lib/survey")
 require("./lib/question")
+require("./lib/response")
 require('pg')
 require('pry')
 
@@ -55,6 +56,7 @@ end
 get('/surveys/:survey_id/questions/:question_id') do
   @question = Question.find(params.fetch('question_id').to_i())
   @survey = Survey.find(params.fetch('survey_id').to_i())
+  @responses = Response.all
   erb(:question)
 end
 
@@ -64,6 +66,7 @@ patch('/surveys/:survey_id/questions/:question_id') do
   @question.update({:description => description})
   @survey = Survey.find(params.fetch('survey_id').to_i())
   @questions = Question.all()
+  @responses = Response.all
   erb(:survey)
 end
 
@@ -74,4 +77,17 @@ delete('/surveys/:id/questions/:question_id') do
   @survey = Survey.find(params.fetch('id').to_i())
   @surveys = Survey.all()
   erb(:survey)
+end
+
+post('/surveys/:survey_id/questions/:question_id/responses') do
+  response = params.fetch('answer')
+  question_id = params.fetch('question_id').to_i()
+  @response = Response.create({:answer => response, :question_id => question_id})
+  @responses = Response.all
+  @question = Question.find(params.fetch('question_id').to_i())
+  @survey = Survey.find(params.fetch('survey_id').to_i())
+  @questions = Question.all()
+  # binding.pry
+  erb(:question)
+  # redirect("/")
 end

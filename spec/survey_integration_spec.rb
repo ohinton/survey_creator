@@ -88,3 +88,16 @@ describe('delete a question path', {:type => :feature}) do
     expect(page).to have_content("There are no questions saved yet!")
   end
 end
+
+describe('add a response to a question path', {:type => :feature}) do
+  it('adds responses to a question') do
+    test_survey = Survey.create({:name => "Test Survey"})
+    test_question = Question.create({:description => "This is a test question", :survey_id => test_survey.id()})
+    visit('/')
+    click_link('Test survey')
+    click_link('This is a test question')
+    fill_in("answer", :with => "Test answer")
+    click_button("Add")
+    expect(page).to have_content("Test answer")
+  end
+end
