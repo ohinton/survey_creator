@@ -1,0 +1,14 @@
+<h3>Here is what the question currently looks like:</h3>
+<h4><%= @question.description() %></h4>
+
+<form action="/surveys/<%= @survey.id() %>/questions/<%= @question.id%>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label for="description">Update the question:</label>
+  <input name="description" type="text">
+<button type="submit">Update</button>
+</form>
+
+<form action="/questions/<%= @question.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit">Delete</button>
+</form>

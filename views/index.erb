@@ -15,3 +15,14 @@
 <% else %>
   <p> There are no surveys added yet! </p>
 <%end%>
+
+<h2>Here are all the questions!</h2>
+<% if @questions.any?() %>
+  <ul>
+  <% @questions.each do |question| %>
+    <li><%= question.description %></li>
+  <%end%>
+  </ul>
+<% else %>
+  <p> There are no questions added yet! </p>
+<%end%>
